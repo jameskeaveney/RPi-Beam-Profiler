@@ -1,0 +1,4 @@
+include *.txt
+recursive-include beamprofiler/docs *.pdf
+recursive-include beamprofiler/images *.ico *.png
+recursive-include beamprofiler/sample_data *.pkl
