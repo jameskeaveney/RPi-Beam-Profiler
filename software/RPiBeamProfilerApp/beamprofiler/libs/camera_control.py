@@ -121,12 +121,18 @@ class MyCamera(picamera.PiCamera):
 			## Use only 1 color of pixel in the bayer pattern - much faster than demosaic!
 			
 			## red pixels only:
-			print BayerArray.array
-			self.background = np.asarray(BayerArray.array[ry::2, rx::2, 0],dtype=int)
+			if self.col=='Red':
+				print BayerArray.array
+				self.background = np.asarray(BayerArray.array[ry::2, rx::2, 0],dtype=int)
 			
-			##blue pixels only:
-			#self.image = BayerArray.array[0::2, 1::2, 0]
-		
+			elif self.col=='Green':
+				## green pixels:
+				self.background = np.asarray(BayerArray.array[gy::2, gx::2, 1],dtype=int)
+			
+			else:
+				## blue pixels:
+				self.background = np.asarray(BayerArray.array[by::2, bx::2, 2],dtype=int)
+			
 			## green... more complicated ...
 					
 	def capture_image(self):
@@ -165,17 +171,20 @@ class MyCamera(picamera.PiCamera):
 		else:
 			## Lose a factor of 2 in resolution, but without interpolating - i.e. use only 1 color of pixel
 			
-			##red pixels only:
-			#print 'shape', BayerArray.array.shape
-			#print 'red\n', BayerArray.array[ry::2,rx::2, 0]
-			
 			# red pixels:
-			self.image = np.asarray(BayerArray.array[ry::2, rx::2, 0],dtype=int) # convert to signed integers - otherwise background subtraction can fail
+			## red pixels only:
+			if self.col=='Red':
+				print BayerArray.array
+				self.image = np.asarray(BayerArray.array[ry::2, rx::2, 0],dtype=int)
 			
-			##blue pixels only:
-			#self.image = BayerArray.array[by::2, bx::2, 2]
-		
-			## green... more complicated ... probably just use interpolate in this case...
+			elif self.col=='Green':
+				## green pixels:
+				self.image = np.asarray(BayerArray.array[gy::2, gx::2, 1],dtype=int)
+			
+			else:
+				## blue pixels:
+				self.image = np.asarray(BayerArray.array[by::2, bx::2, 2],dtype=int)
+				# dtype=int >> converts to signed integers - otherwise background subtraction can fail
 		
 		## apply crops for region of interest here
 		h,w = self.image.shape
