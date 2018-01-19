@@ -1,1 +1,1 @@
-This is the readme file.
+This directory contains the code for the software to run the beam profiler. See the user guide for installation instructions.
