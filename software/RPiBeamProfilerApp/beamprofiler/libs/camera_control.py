@@ -188,8 +188,8 @@ class MyCamera(picamera.PiCamera):
 		
 		## apply crops for region of interest here
 		h,w = self.image.shape
-		self.roi_frac = [self.roi[0]/self.ccd_xsize,self.roi[1]/self.ccd_xsize,\
-						1-self.roi[2]/self.ccd_ysize,1-self.roi[3]/self.ccd_ysize]
+		self.roi_frac = [int(self.roi[0]/self.ccd_xsize),int(self.roi[1]/self.ccd_xsize),\
+						1-int(self.roi[2]/self.ccd_ysize),1-int(self.roi[3]/self.ccd_ysize)]
 						
 		self.cropped_image = self.image[  h*self.roi_frac[3]:h*self.roi_frac[2],w*self.roi_frac[0]:w*self.roi_frac[1]]
 		if self.background is not None:
