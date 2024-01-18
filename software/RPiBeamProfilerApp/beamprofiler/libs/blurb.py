@@ -1,6 +1,5 @@
-fullpath = './'
-about_message = \
-" Raspberry Pi Beam Profiler 1.0 \n\n \
+fullpath = "./"
+about_message = " Raspberry Pi Beam Profiler 1.0 \n\n \
 Uses Raspberry Pi NOIR CCD camera (with the stock lens removed) \
 to analyse the spatial size of a beam as a function of \
 translation distance along the beam axis. \n\n\
